@@ -32,7 +32,7 @@ public class UsuarioControle extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 5;
     }
 
     @Override
@@ -45,8 +45,15 @@ public class UsuarioControle extends AbstractTableModel {
             return usuarios.getTkslNome();
         }
         if (columnIndex == 2) {
-            return usuarios.getTkslAtivo();
+            return usuarios.getTkslApelido();
         }
+        if (columnIndex == 3) {
+            return usuarios.getTkslCpf();
+        }
+        if (columnIndex == 4) {
+            return usuarios.getTkslNivel();
+        }
+
 
         return "";
     }
@@ -58,7 +65,11 @@ public class UsuarioControle extends AbstractTableModel {
             case 1:
                 return "Nome";
             case 2:
-                return "Ativo";
+                return "Apelido";
+            case 3:
+                return "CPF";
+            case 4:
+                return "Nível";
         }
         return "";
     }

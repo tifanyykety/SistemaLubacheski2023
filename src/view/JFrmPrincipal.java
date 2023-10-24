@@ -9,6 +9,7 @@ package view;
  *
  * @author u07883409131
  */
+import query.JDlgConsultaUsuario;
 import telasNovas.*;
 
 public class JFrmPrincipal extends javax.swing.JFrame {
@@ -41,6 +42,11 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         tksl_jMenuItem1 = new javax.swing.JMenuItem();
         tksl_jMnuMovimento = new javax.swing.JMenu();
         tksl_jMnuVendas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        tksl_jMnuUsuario = new javax.swing.JMenuItem();
+        tksl_jMenuCliente = new javax.swing.JMenuItem();
+        tksl_jMenuProduto = new javax.swing.JMenuItem();
+        tksl_jMenuVendedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +79,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         tksl_jMnuCadastros.add(tksl_jMnuProdutoNovo);
 
         tksl_jMnuVendedorNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        tksl_jMnuVendedorNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/download (1).png"))); // NOI18N
+        tksl_jMnuVendedorNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/download.png"))); // NOI18N
         tksl_jMnuVendedorNovo.setText("VendedorNovo");
         tksl_jMnuVendedorNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +124,50 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         tksl_jMnuMovimento.add(tksl_jMnuVendas);
 
         jMenuBar1.add(tksl_jMnuMovimento);
+
+        jMenu1.setText("Consultas");
+
+        tksl_jMnuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        tksl_jMnuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/download (1).png"))); // NOI18N
+        tksl_jMnuUsuario.setText("Usuários");
+        tksl_jMnuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tksl_jMnuUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(tksl_jMnuUsuario);
+
+        tksl_jMenuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        tksl_jMenuCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cliente.png"))); // NOI18N
+        tksl_jMenuCliente.setText("Cliente");
+        tksl_jMenuCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tksl_jMenuClienteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(tksl_jMenuCliente);
+
+        tksl_jMenuProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        tksl_jMenuProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produto.png"))); // NOI18N
+        tksl_jMenuProduto.setText("Produto");
+        tksl_jMenuProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tksl_jMenuProdutoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(tksl_jMenuProduto);
+
+        tksl_jMenuVendedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        tksl_jMenuVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/download.png"))); // NOI18N
+        tksl_jMenuVendedor.setText("Vendedor");
+        tksl_jMenuVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tksl_jMenuVendedorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(tksl_jMenuVendedor);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -174,6 +224,25 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jDlgVendas.setVisible(true);
     }//GEN-LAST:event_tksl_jMnuVendasActionPerformed
 
+    private void tksl_jMnuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMnuUsuarioActionPerformed
+        // TODO add your handling code here:
+        JDlgConsultaUsuario jDlgConsultaUsuario = new JDlgConsultaUsuario(null, true);
+        jDlgConsultaUsuario.setVisible(true);
+        
+    }//GEN-LAST:event_tksl_jMnuUsuarioActionPerformed
+
+    private void tksl_jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMenuClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tksl_jMenuClienteActionPerformed
+
+    private void tksl_jMenuProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMenuProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tksl_jMenuProdutoActionPerformed
+
+    private void tksl_jMenuVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMenuVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tksl_jMenuVendedorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -217,12 +286,17 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem tksl_jMenuCliente;
     private javax.swing.JMenuItem tksl_jMenuItem1;
+    private javax.swing.JMenuItem tksl_jMenuProduto;
+    private javax.swing.JMenuItem tksl_jMenuVendedor;
     private javax.swing.JMenu tksl_jMnuCadastros;
     private javax.swing.JMenuItem tksl_jMnuCliente;
     private javax.swing.JMenu tksl_jMnuMovimento;
     private javax.swing.JMenuItem tksl_jMnuProdutoNovo;
+    private javax.swing.JMenuItem tksl_jMnuUsuario;
     private javax.swing.JMenuItem tksl_jMnuUsuarios;
     private javax.swing.JMenuItem tksl_jMnuVendas;
     private javax.swing.JMenuItem tksl_jMnuVendedorNovo;
