@@ -43,8 +43,12 @@ public class tksl_VendasProdutoDao extends Dao_Abstract {
 
     @Override
     public Object list(int id) {
-
-        return null;
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(TkslVendasproduto.class);
+        criteria.add(Restrictions.eq("idvendasproduto", id));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
     }
 
     @Override

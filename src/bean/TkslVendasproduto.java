@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class TkslVendasproduto implements java.io.Serializable {
 
     private int tkslIdVendasProduto;
-    private TkslVendas tkslVendas;
+    private String tkslVendas;
     private int tkslQuantidade;
     private double tkslValorUnitario;
     private double tkslTotal;
@@ -25,11 +25,12 @@ public class TkslVendasproduto implements java.io.Serializable {
     public TkslVendasproduto() {
     }
 
-    public TkslVendasproduto(TkslVendas tkslVendas) {
-        this.tkslVendas = tkslVendas;
+    public TkslVendasproduto(int tkslIdVendasProduto) {
+        this.tkslIdVendasProduto = tkslIdVendasProduto;
     }
 
-    public TkslVendasproduto(TkslVendas tkslVendas, int tkslQuantidade, double tkslValorUnitario, double tkslTotal) {
+    public TkslVendasproduto(int tkslIdVendasProduto, String tkslVendas, int tkslQuantidade, double tkslValorUnitario, double tkslTotal) {
+        this.tkslIdVendasProduto = tkslIdVendasProduto;
         this.tkslVendas = tkslVendas;
         this.tkslQuantidade = tkslQuantidade;
         this.tkslValorUnitario = tkslValorUnitario;
@@ -37,7 +38,6 @@ public class TkslVendasproduto implements java.io.Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
 
     @Column(name = "tksl_idVendasProduto", unique = true, nullable = false)
     public int getTkslIdVendasProduto() {
@@ -48,13 +48,12 @@ public class TkslVendasproduto implements java.io.Serializable {
         this.tkslIdVendasProduto = tkslIdVendasProduto;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tksl_fk_venda", nullable = false)
-    public TkslVendas getTkslVendas() {
+    @Column(name = "tksl_fk_venda", nullable = false)
+    public String getTkslVendas() {
         return this.tkslVendas;
     }
 
-    public void setTkslVendas(TkslVendas tkslVendas) {
+    public void setTkslVendas(String tkslVendas) {
         this.tkslVendas = tkslVendas;
     }
 

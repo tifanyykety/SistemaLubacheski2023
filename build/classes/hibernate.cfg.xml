@@ -43,8 +43,8 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_tifany_lubacheski?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password"></property>
+    <property name="hibernate.connection.username">tifany_lubacheski</property>
+    <property name="hibernate.connection.password">tifany_lubacheski</property>
     <mapping class="bean.TkslVendasproduto"/>
     <mapping class="bean.TkslCliente"/>
     <mapping class="bean.TkslUsuarios"/>

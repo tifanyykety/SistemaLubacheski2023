@@ -8,6 +8,7 @@ package dao;
 import bean.TkslVendedor;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -42,8 +43,12 @@ public class tksl_VendedorDao extends Dao_Abstract {
 
     @Override
     public Object list(int id) {
-
-        return null;
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(TkslVendedor.class);
+        criteria.add(Restrictions.eq("idvendedor", id));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
     }
 
     @Override

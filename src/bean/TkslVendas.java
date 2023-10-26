@@ -1,13 +1,9 @@
 package bean;
 
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,21 +15,19 @@ import javax.persistence.TemporalType;
 public class TkslVendas implements java.io.Serializable {
 
     private int tkslIdVendas;
-    private TkslCliente tkslCliente;
-    private TkslVendedor tkslVendedor;
+    private String tkslCliente;
+    private String tkslVendedor;
     private Date tkslData;
     private double tkslTotal;
 
     public TkslVendas() {
     }
 
-    public TkslVendas(int tkslIdVendas, TkslCliente tkslCliente, TkslVendedor tkslVendedor) {
+    public TkslVendas(int tkslIdVendas) {
         this.tkslIdVendas = tkslIdVendas;
-        this.tkslCliente = tkslCliente;
-        this.tkslVendedor = tkslVendedor;
     }
 
-    public TkslVendas(int tkslIdVendas, TkslCliente tkslCliente, TkslVendedor tkslVendedor, Date tkslData, double tkslTotal) {
+    public TkslVendas(int tkslIdVendas, String tkslCliente, String tkslVendedor, Date tkslData, double tkslTotal) {
         this.tkslIdVendas = tkslIdVendas;
         this.tkslCliente = tkslCliente;
         this.tkslVendedor = tkslVendedor;
@@ -52,23 +46,22 @@ public class TkslVendas implements java.io.Serializable {
         this.tkslIdVendas = tkslIdVendas;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tksl_fk_cliente", nullable = false)
-    public TkslCliente getTkslCliente() {
+    @Column(name = "tksl_fk_cliente", nullable = false)
+    public String getTkslCliente() {
         return this.tkslCliente;
     }
 
-    public void setTkslCliente(TkslCliente tkslCliente) {
+    public void setTkslCliente(String tkslCliente) {
         this.tkslCliente = tkslCliente;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tksl_fk_vendedor", nullable = false)
-    public TkslVendedor getTkslVendedor() {
+
+    @Column(name = "tksl_fk_vendedor", nullable = false)
+    public String getTkslVendedor() {
         return this.tkslVendedor;
     }
 
-    public void setTkslVendedor(TkslVendedor tkslVendedor) {
+    public void setTkslVendedor(String tkslVendedor) {
         this.tkslVendedor = tkslVendedor;
     }
 

@@ -6,12 +6,13 @@
 package telasPesquisa;
 
 import bean.TkslVendas;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class VendaControle extends AbstractTableModel {
 
-    private List lista;
+    private List lista = new ArrayList();
 
     public void setList(List lista) {
         this.lista = lista;
@@ -21,10 +22,7 @@ public class VendaControle extends AbstractTableModel {
         return (TkslVendas) lista.get(row);
     }*/
     public TkslVendas getVenda(int row) {
-        if (lista != null && row >= 0 && row < lista.size()) {
             return (TkslVendas) lista.get(row);
-        }
-        return null;
     }
 
     @Override
@@ -38,20 +36,26 @@ public class VendaControle extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 5;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        TkslVendas Venda = (TkslVendas) lista.get(rowIndex);
+        TkslVendas TkslVenda = (TkslVendas) lista.get(rowIndex);
         if (columnIndex == 0) {
-            return Venda.getTkslIdVendas();
+            return TkslVenda.getTkslIdVendas();
         }
         if (columnIndex == 1) {
-            return Venda.getTkslVendedor().getTkslNome();
+            return TkslVenda.getTkslData();
         }
         if (columnIndex == 2) {
-            return Venda.getTkslTotal();
+            return TkslVenda.getTkslCliente();
+        }
+        if (columnIndex == 3) {
+            return TkslVenda.getTkslVendedor();
+        }
+        if (columnIndex == 4) {
+            return TkslVenda.getTkslTotal();
         }
 
         return "";
@@ -62,8 +66,12 @@ public class VendaControle extends AbstractTableModel {
             case 0:
                 return "ID";
             case 1:
-                return "Funcionario";
+                return "Data";
             case 2:
+                return "Cliente";
+            case 3:
+                return "Funcionário";
+            case 4:
                 return "Total";
         }
         return "";
