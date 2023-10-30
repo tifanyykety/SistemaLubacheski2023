@@ -5,6 +5,7 @@
  */
 package view;
 
+import telasPesquisa.VendasProdControle;
 import bean.TkslCliente;
 import bean.TkslVendasproduto;
 import bean.TkslVendedor;

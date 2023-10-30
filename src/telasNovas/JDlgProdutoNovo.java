@@ -5,6 +5,7 @@
  */
 package telasNovas;
 
+import telasPesquisa.ProdutoControle;
 import bean.TkslProduto;
 import dao.tksl_ProdutoDao;
 import java.util.List;

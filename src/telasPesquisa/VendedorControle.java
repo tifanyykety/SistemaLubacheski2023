@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telasNovas;
+package telasPesquisa;
 
-import bean.TkslProduto;
+import bean.TkslVendedor;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class ProdutoControle extends AbstractTableModel {
+public class VendedorControle extends AbstractTableModel {
 
     private List lista;
 
     public void setList(List lista) {
         this.lista = lista;
+        this.fireTableDataChanged();
         this.fireTableDataChanged();
     }
 
@@ -22,13 +23,13 @@ public class ProdutoControle extends AbstractTableModel {
         this.fireTableDataChanged();
     }
 
-    public TkslProduto getProduto(int row) {
-        return (TkslProduto) lista.get(row);
+    public TkslVendedor getTkslVendedor(int row) {
+        return (TkslVendedor) lista.get(row);
 
     }
 
-    public void addList(TkslProduto tkslProduto) {
-        lista.add(tkslProduto);
+    public void addList(TkslVendedor tkslVendedor) {
+        lista.add(tkslVendedor);
         this.fireTableDataChanged();
     }
 
@@ -54,15 +55,15 @@ public class ProdutoControle extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        TkslProduto Produto = (TkslProduto) lista.get(rowIndex);
+        TkslVendedor TkslVendedor = (TkslVendedor) lista.get(rowIndex);
         if (columnIndex == 0) {
-            return Produto.getTkslIdProduto();
+            return TkslVendedor.getTkslIdVendedor();
         }
         if (columnIndex == 1) {
-            return Produto.getTkslNome();
+            return TkslVendedor.getTkslNome();
         }
         if (columnIndex == 2) {
-            return Produto.getTkslTamanho();
+            return TkslVendedor.getTkslAtivo();
         }
 
         return "";
@@ -75,7 +76,7 @@ public class ProdutoControle extends AbstractTableModel {
             case 1:
                 return "Nome";
             case 2:
-                return "tamnho";
+                return "Ativo";
         }
         return "";
     }

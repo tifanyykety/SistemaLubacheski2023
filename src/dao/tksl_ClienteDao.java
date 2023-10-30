@@ -59,4 +59,39 @@ public class tksl_ClienteDao extends Dao_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+    
+    public List listaNome(String nome){
+    Criteria criteria = session.createCriteria(TkslCliente.class);
+    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
+    List listaNome = criteria.list();
+    session.getTransaction().commit();
+    return listaNome;
+    }
+    
+    public List listaCpf(String cpf){
+    Criteria criteria = session.createCriteria(TkslCliente.class);
+    criteria.add(Restrictions.like("tksl_cpf", "%"+cpf+"%"));
+    List listaCpf = criteria.list(); //salva os resultados obtidos dentro de uma lista
+    session.getTransaction().commit();
+    return listaCpf;
+    }
+    
+    public List listaRg(String rg){
+    Criteria criteria = session.createCriteria(TkslCliente.class);
+    criteria.add(Restrictions.like("tksl_rg", "%"+rg+"%"));
+    List listaRg = criteria.list(); //salva os resultados obtidos dentro de uma lista
+    session.getTransaction().commit();
+    return listaRg;
+    }
+    
+    public List listaTudoJunto(String nome, String cpf, String rg){
+    Criteria criteria = session.createCriteria(TkslCliente.class);
+    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
+    criteria.add(Restrictions.like("tksl_cpf", "%"+cpf+"%"));
+    criteria.add(Restrictions.like("tksl_rg", "%"+rg+"%"));
+    List listaTudoJunto = criteria.list();
+    session.getTransaction().commit();
+    return listaTudoJunto;
+    }
 }
+

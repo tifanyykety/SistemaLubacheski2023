@@ -5,6 +5,7 @@
  */
 package telasNovas;
 
+import telasPesquisa.VendedorControle;
 import bean.TkslVendedor;
 import dao.tksl_VendedorDao;
 import java.util.List;

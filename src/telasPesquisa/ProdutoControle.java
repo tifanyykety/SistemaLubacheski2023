@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telasNovas;
+package telasPesquisa;
 
-import bean.TkslVendedor;
+import bean.TkslProduto;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class VendedorControle extends AbstractTableModel {
+public class ProdutoControle extends AbstractTableModel {
 
     private List lista;
 
     public void setList(List lista) {
         this.lista = lista;
-        this.fireTableDataChanged();
         this.fireTableDataChanged();
     }
 
@@ -23,13 +22,13 @@ public class VendedorControle extends AbstractTableModel {
         this.fireTableDataChanged();
     }
 
-    public TkslVendedor getTkslVendedor(int row) {
-        return (TkslVendedor) lista.get(row);
+    public TkslProduto getProduto(int row) {
+        return (TkslProduto) lista.get(row);
 
     }
 
-    public void addList(TkslVendedor tkslVendedor) {
-        lista.add(tkslVendedor);
+    public void addList(TkslProduto tkslProduto) {
+        lista.add(tkslProduto);
         this.fireTableDataChanged();
     }
 
@@ -50,25 +49,28 @@ public class VendedorControle extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        TkslVendedor TkslVendedor = (TkslVendedor) lista.get(rowIndex);
+        TkslProduto Produto = (TkslProduto) lista.get(rowIndex);
         if (columnIndex == 0) {
-            return TkslVendedor.getTkslIdVendedor();
+            return Produto.getTkslIdProduto();
         }
         if (columnIndex == 1) {
-            return TkslVendedor.getTkslNome();
+            return Produto.getTkslNome();
         }
         if (columnIndex == 2) {
-            return TkslVendedor.getTkslAtivo();
+            return Produto.getTkslTamanho();
+        }
+        if (columnIndex == 3) {
+            return Produto.getTkslValorUnitario();
         }
 
         return "";
     }
-
+//ValorUnitario
     public String getColumnName(int column) {
         switch (column) {
             case 0:
@@ -76,7 +78,9 @@ public class VendedorControle extends AbstractTableModel {
             case 1:
                 return "Nome";
             case 2:
-                return "Ativo";
+                return "Tamanho";
+            case 3:
+                return "Valor";
         }
         return "";
     }

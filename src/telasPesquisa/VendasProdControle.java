@@ -1,4 +1,4 @@
-package view;
+package telasPesquisa;
 
 import bean.TkslVendasproduto;
 import java.util.ArrayList;

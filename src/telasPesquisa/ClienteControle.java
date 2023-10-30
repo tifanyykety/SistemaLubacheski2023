@@ -33,7 +33,7 @@ public class ClienteControle extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 5;
     }
 
     @Override
@@ -46,7 +46,13 @@ public class ClienteControle extends AbstractTableModel {
             return TkslCliente.getTkslNomeCompleto();
         }
         if (columnIndex == 2) {
-            return TkslCliente.getTkslCargo();
+            return TkslCliente.getTkslCpf();
+        }
+        if (columnIndex == 3) {
+            return TkslCliente.getTkslRg();
+        }
+        if (columnIndex == 4) {
+            return TkslCliente.getTkslNumeroFone();
         }
 
         return null;
@@ -59,7 +65,11 @@ public class ClienteControle extends AbstractTableModel {
             case 1:
                 return "Nome";
             case 2:
-                return "Cargo";
+                return "CPF";
+            case 3:
+                return "RG";
+            case 4:
+                return "NumeroFone";
         }
         return null;
     }

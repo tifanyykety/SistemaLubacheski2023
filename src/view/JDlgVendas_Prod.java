@@ -1,5 +1,6 @@
 package view;
 
+import telasPesquisa.VendasProdControle;
 import bean.TkslProduto;
 import bean.TkslVendasproduto;
 import dao.tksl_ProdutoDao;
