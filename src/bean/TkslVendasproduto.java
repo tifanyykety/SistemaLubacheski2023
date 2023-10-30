@@ -2,12 +2,7 @@ package bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +12,7 @@ import javax.persistence.Table;
 public class TkslVendasproduto implements java.io.Serializable {
 
     private int tkslIdVendasProduto;
-    private String tkslVendas;
+    private TkslVendas tkslVendas;
     private int tkslQuantidade;
     private double tkslValorUnitario;
     private double tkslTotal;
@@ -29,7 +24,7 @@ public class TkslVendasproduto implements java.io.Serializable {
         this.tkslIdVendasProduto = tkslIdVendasProduto;
     }
 
-    public TkslVendasproduto(int tkslIdVendasProduto, String tkslVendas, int tkslQuantidade, double tkslValorUnitario, double tkslTotal) {
+    public TkslVendasproduto(int tkslIdVendasProduto, TkslVendas tkslVendas, int tkslQuantidade, double tkslValorUnitario, double tkslTotal) {
         this.tkslIdVendasProduto = tkslIdVendasProduto;
         this.tkslVendas = tkslVendas;
         this.tkslQuantidade = tkslQuantidade;
@@ -49,11 +44,11 @@ public class TkslVendasproduto implements java.io.Serializable {
     }
 
     @Column(name = "tksl_fk_venda", nullable = false)
-    public String getTkslVendas() {
+    public TkslVendas getTkslVendas() {
         return this.tkslVendas;
     }
 
-    public void setTkslVendas(String tkslVendas) {
+    public void setTkslVendas(TkslVendas tkslVendas) {
         this.tkslVendas = tkslVendas;
     }
 

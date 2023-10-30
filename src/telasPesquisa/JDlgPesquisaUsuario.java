@@ -5,11 +5,9 @@
  */
 package telasPesquisa;
 
-import bean.TkslUsuarios;
 import dao.tksl_UsuarioDao;
 import java.util.List;
 import view.JDlgUsuarios;
-import javax.swing.JOptionPane;
 import tools.util;
 
 public class JDlgPesquisaUsuario extends javax.swing.JDialog {

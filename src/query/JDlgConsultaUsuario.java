@@ -5,10 +5,8 @@
  */
 package query;
 
-import dao.tksl_ClienteDao;
 import dao.tksl_UsuarioDao;
 import java.util.List;
-import telasPesquisa.ClienteControle;
 import telasPesquisa.UsuarioControle;
 
 /**

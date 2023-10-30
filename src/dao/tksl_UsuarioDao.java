@@ -72,7 +72,7 @@ public class tksl_UsuarioDao extends Dao_Abstract {
     public List listaCpf(String cpf){
     Criteria criteria = session.createCriteria(TkslUsuarios.class);
     criteria.add(Restrictions.like("tksl_cpf", "%"+cpf+"%"));
-    List listaCpf = criteria.list();
+    List listaCpf = criteria.list(); //salva os resultados obtidos dentro de uma lista
     session.getTransaction().commit();
     return listaCpf;
     }
