@@ -55,32 +55,32 @@ public class tksl_VendedorDao extends Dao_Abstract {
     public List listAll() {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslVendedor.class);
-        List lista = criteria.list();
+        List lista = criteria.list(); //salva os resultados obtidos dentro de uma lista
         session.getTransaction().commit();
         return lista;
     }
-    public List listaId(String idVendedor){
-    Criteria criteria = session.createCriteria(TkslVendedor.class);
-    criteria.add(Restrictions.like("tksl_idVendedor", "+idVendedor"));
-    List listaId = criteria.list();
-    session.getTransaction().commit();
-    return listaId;
-    }
-    
     public List listaNome(String nome){
-    Criteria criteria = session.createCriteria(TkslVendedor.class);
-    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
-    List listaNome = criteria.list(); //salva os resultados obtidos dentro de uma lista
-    session.getTransaction().commit();
-    return listaNome;
+        Criteria criteria = session.createCriteria(TkslVendedor.class);
+        criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
+        List listaNome = criteria.list(); //salva os resultados obtidos dentro de uma lista
+        session.getTransaction().commit();
+        return listaNome;
     }
     
-    public List listaIdNome(String idVendedor, String nome){
-    Criteria criteria = session.createCriteria(TkslVendedor.class);
-    criteria.add(Restrictions.like("tksl_idVendedor", "+idVendedor"));
-    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
-    List listaIdNome = criteria.list();
-    session.getTransaction().commit();
-    return listaIdNome;
+    public List listaNivel(String nivel){
+        Criteria criteria = session.createCriteria(TkslVendedor.class);
+        criteria.add(Restrictions.like("tksl_nivel", "+nivel"));
+        List listaNivel = criteria.list(); //salva os resultados obtidos dentro de uma lista
+        session.getTransaction().commit();
+        return listaNivel;
+    }
+    
+    public List listaNomeNivel(String nome, String nivel){
+        Criteria criteria = session.createCriteria(TkslVendedor.class);
+        criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
+        criteria.add(Restrictions.like("tksl_nivel", "+nivel"));
+        List listaNomeNivel = criteria.list(); //salva os resultados obtidos dentro de uma lista
+        session.getTransaction().commit();
+        return listaNomeNivel;
     }
 }
