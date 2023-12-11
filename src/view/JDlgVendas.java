@@ -16,7 +16,6 @@ import dao.tksl_VendedorDao;
 import bean.TkslVendas;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,39 +25,41 @@ import telasPesquisa.JDlgPesquisaVenda;
 import tools.util;
 
 public class JDlgVendas extends javax.swing.JDialog {
-
+    
     public TkslVendas venda;
-    TkslCliente cliente;
-    TkslVendedor vendedor;
-    tksl_VendasDao vendaDAO;
-    tksl_ClienteDao clienteDAO;
-    tksl_VendedorDao vendedorDAO;
-    TkslVendasproduto vendaProduto;
-    tksl_VendasProdutoDao vendaProdutoDAO;
+    public TkslCliente cliente;
+    public TkslVendedor vendedor;
+    private tksl_VendasDao vendaDAO;
+    public tksl_ClienteDao clienteDAO;
+    public tksl_VendedorDao vendedorDAO;
+    public TkslVendasproduto vendaProduto;
+    public tksl_VendasProdutoDao vendaProdutoDAO;
     public VendasProdControle vendasProdControle;
-    boolean incluindo;
+    public JDlgVendas_Prod jDlgVendasProd;
+    private boolean incluindo;
     MaskFormatter mascaraData;
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    MaskFormatter mascaraTotal;
 
     public JDlgVendas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Vendas");
         setLocationRelativeTo(null);
-        Habilitar(false);
-        limparCampos();
-        venda = new TkslVendas();
-        cliente = new TkslCliente();
-        vendedor = new TkslVendedor();
-        vendaDAO = new tksl_VendasDao();
-        clienteDAO = new tksl_ClienteDao();
-        vendedorDAO = new tksl_VendedorDao();
-        vendaProdutoDAO = new tksl_VendasProdutoDao();
-        vendaProduto = new TkslVendasproduto();
-        incluindo = false;
-        vendasProdControle = new VendasProdControle();
-        vendasProdControle.setList(new ArrayList());
-        jTable1.setModel(vendasProdControle);
+        util.habilitar(false,tksl_jTxtId, tksl_jFmtData, tksl_jFmtTotal, 
+                tksl_jCboCliente, tksl_jCboVendedor,tksl_jBtnCancelar, tksl_jBtnConfirmar, 
+                tksl_jBtnAlterarProd, tksl_jBtnExcluirProd, tksl_jBtnIncluirProd);
+        util.habilitar(true, tksl_jBtnIncluir, tksl_jBtnAlterar, tksl_jBtnExcluir, tksl_jBtnPesquisar);
+        
+        try {
+            mascaraTotal = new MaskFormatter("####.##");
+            mascaraData = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tksl_jFmtTotal.setFormatterFactory(new DefaultFormatterFactory (mascaraTotal));
+        tksl_jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
+        
         List listC;
         listC = clienteDAO.listAll();
         for (int i = 0; i < listC.size(); i++) {
@@ -72,71 +73,83 @@ public class JDlgVendas extends javax.swing.JDialog {
             vendedor = (TkslVendedor) listV.get(i);
             tksl_jCboVendedor.addItem(vendedor);
         }
-
-        try {
-            mascaraData = new MaskFormatter("##/##/####");
-        } catch (ParseException ex) {
-            Logger.getLogger(JDlgVendas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        tksl_jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
+//        venda = new TkslVendas();
+//        cliente = new TkslCliente();
+//        vendedor = new TkslVendedor();
+//        vendaDAO = new tksl_VendasDao();
+//        clienteDAO = new tksl_ClienteDao();
+//        vendedorDAO = new tksl_VendedorDao();
+//        vendaProdutoDAO = new tksl_VendasProdutoDao();
+//        vendaProduto = new TkslVendasproduto();
+//        incluindo = false;
+//        vendasProdControle = new VendasProdControle();
+//        vendasProdControle.setList(new ArrayList());
+//        jTable1.setModel(vendasProdControle);
+//        List listC;
+//        listC = clienteDAO.listAll();
+//        for (int i = 0; i < listC.size(); i++) {
+//            cliente = (TkslCliente) listC.get(i);
+//            tksl_jCboCliente.addItem(cliente);
+//        }
+//
+//        List listV;
+//        listV = vendedorDAO.listAll();
+//        for (int i = 0; i < listV.size(); i++) {
+//            vendedor = (TkslVendedor) listV.get(i);
+//            tksl_jCboVendedor.addItem(vendedor);
+//        }
+//
+//        try {
+//            mascaraData = new MaskFormatter("##/##/####");
+//        } catch (ParseException ex) {
+//            Logger.getLogger(JDlgVendas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        tksl_jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
     }
 
     public void Habilitar(boolean valor) {
-        tksl_jTxtId.setEnabled(valor);
-        tksl_jCboCliente.setEnabled(valor);
-        tksl_jCboVendedor.setEnabled(valor);
-
-        tksl_jFmtData.setEnabled(valor);
-        tksl_jFmtTotal.setEnabled(valor);
-        jTable1.setEnabled(valor);
-        tksl_jBtnIncluirProd.setEnabled(valor);
-        tksl_jBtnAlterarProd.setEnabled(valor);
-        tksl_jBtnExcluirProd.setEnabled(valor);
-        tksl_jBtnCancelar.setEnabled(valor);
-        tksl_jBtnConfirmar.setEnabled(valor);
-
-        tksl_jBtnAlterar.setEnabled(!valor);
-        tksl_jBtnExcluir.setEnabled(!valor);
-        tksl_jBtnIncluir.setEnabled(!valor);
-        tksl_jBtnPesquisar.setEnabled(!valor);
+        util.habilitar(valor, tksl_jTxtId, tksl_jFmtTotal, tksl_jFmtData, tksl_jCboVendedor,
+                tksl_jCboCliente, tksl_jBtnConfirmar,tksl_jBtnCancelar);
+        util.habilitar(valor, tksl_jBtnIncluirProd, tksl_jBtnAlterarProd, tksl_jBtnExcluirProd);
+        util.habilitar(!valor, tksl_jBtnIncluir, tksl_jBtnAlterar, tksl_jBtnExcluir, tksl_jBtnPesquisar);
 
     }
 
-    public void limparCampos() {
-        tksl_jTxtId.setText("");
-        tksl_jCboCliente.setSelectedIndex(-1);
-        tksl_jCboVendedor.setSelectedIndex(-1);
-
-        tksl_jFmtData.setText("");
-
-        tksl_jFmtTotal.setText("0.0");
-    }
-
-    public void paseTotal(Double total) {
-        double calculo = Double.parseDouble(tksl_jFmtTotal.getText()) + total;
-        tksl_jFmtTotal.setText(String.valueOf(calculo));
-    }
 
     public TkslVendas viewBean() {
-        venda.setTkslIdVendas(Integer.valueOf(tksl_jTxtId.getText()));
-        venda.setTkslCliente((String) tksl_jCboCliente.getSelectedItem());
+        venda = new TkslVendas();
+        int id = Integer.valueOf(tksl_jTxtId.getText());
+        venda.setTkslIdVendas(id);
+        double total = Double.parseDouble(tksl_jFmtTotal.getText());
+        venda.setTkslTotal(total);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//        venda.setTkslCliente((String) tksl_jCboCliente.getSelectedItem());
         try {
             venda.setTkslData(formatoData.parse(tksl_jFmtData.getText()));
         } catch (ParseException ex) {
-            Logger.getLogger(JDlgVendas.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print("Realizado com sucesso:" + ex.getMessage());
         }
         venda.setTkslTotal(Double.valueOf(tksl_jFmtTotal.getText()));
         venda.setTkslVendedor((String) tksl_jCboVendedor.getSelectedItem());
+        venda.setTkslCliente((String) tksl_jCboCliente.getSelectedItem());
         return venda;
     }
 
     public void beanView(TkslVendas venda) {
         tksl_jTxtId.setText(String.valueOf(venda.getTkslIdVendas()));
-        tksl_jFmtData.setText(formatoData.format(venda.getTkslData()));
+        tksl_jFmtData.setText(util.dateStr(venda.getTkslData()));
         tksl_jFmtTotal.setText(String.valueOf(venda.getTkslTotal()));
         tksl_jCboCliente.setSelectedItem(venda.getTkslCliente());
-        tksl_jCboVendedor.setSelectedItem(venda.getTkslVendedor().toString());
+        tksl_jCboVendedor.setSelectedItem(venda.getTkslVendedor());
+        
+        vendaProdutoDAO = new tksl_VendasProdutoDao();
+        List listaProduto = (List) vendaProdutoDAO.listaProdutos(venda);
+        vendasProdControle.setList(listaProduto);
 
+    } 
+    
+    public int getSelectedRowProd() {
+        return jTable1.getSelectedRow();
     }
 
     /**
@@ -383,22 +396,22 @@ public class JDlgVendas extends javax.swing.JDialog {
 
     private void tksl_jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnIncluirProdActionPerformed
         // TODO add your handling code here:
-        JDlgVendas_Prod jDlgVendas_Prod = new JDlgVendas_Prod(null, true);
-        jDlgVendas_Prod.setTelaAnterior(this, Integer.valueOf(tksl_jTxtId.getText()));
-        jDlgVendas_Prod.setVisible(true);
+//        jDlgVendasProd.setTitle("Incluir uma Venda");
+//        jDlgVendasProd.setTelaAnterior(this);
+//        jDlgVendasProd.setVisible(true);
     }//GEN-LAST:event_tksl_jBtnIncluirProdActionPerformed
 
     private void tksl_jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnAlterarProdActionPerformed
         // TODO add your handling code here:
-        int linha = jTable1.getSelectedRow();
-        if (linha == -1) {
-            util.mensagem("Nenhuma linha selecionada");
-        } else {
-            vendasProdControle.removeList(linha);
-            JDlgVendas_Prod jDlgVendas_Prod = new JDlgVendas_Prod(null, true);
-            jDlgVendas_Prod.setTelaAnterior(this, Integer.valueOf(tksl_jTxtId.getText()));
-            jDlgVendas_Prod.setVisible(true);
-        }
+//        int linha = jTable1.getSelectedRow();
+//        if (linha == -1) {
+//            util.mensagem("Nenhuma linha selecionada");
+//        } else {
+//            vendasProdControle.removeList(linha);
+//            JDlgVendas_Prod jDlgVendas_Prod = new JDlgVendas_Prod(null, true);
+//            jDlgVendas_Prod.setTelaAnterior(this, Integer.valueOf(tksl_jTxtId.getText()));
+//            jDlgVendas_Prod.setVisible(true);
+//        }
 
     }//GEN-LAST:event_tksl_jBtnAlterarProdActionPerformed
 

@@ -3,8 +3,10 @@ package view;
 import telasPesquisa.VendasProdControle;
 import bean.TkslProduto;
 import bean.TkslVendasproduto;
+import com.mysql.jdbc.Util;
 import dao.tksl_ProdutoDao;
 import java.util.List;
+import tools.util;
 
 public class JDlgVendas_Prod extends javax.swing.JDialog {
 
@@ -12,6 +14,8 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
     private int codigoVenda;
     TkslProduto produto;
     tksl_ProdutoDao produtoDAO;
+    util util;
+
 
     VendasProdControle vendaProdCont;
 
@@ -37,7 +41,7 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
 
     public void setTelaAnterior(JDlgVendas jDlgVendas, int codigoVenda) {
         this.jDlgVendas = jDlgVendas;
-        this.codigoVenda = codigoVenda;
+//        this.codigoVenda = codigoVenda;
     }
 
     /**
@@ -73,6 +77,11 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
 
         jCboProduto.setToolTipText("");
         jCboProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jCboProduto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCboProdutoItemStateChanged(evt);
+            }
+        });
         jCboProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jCboProdutoFocusLost(evt);
@@ -85,9 +94,9 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
         });
 
         jTxtQuantidade.setText("1");
-        jTxtQuantidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTxtQuantidadeFocusLost(evt);
+        jTxtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtQuantidadeKeyReleased(evt);
             }
         });
 
@@ -209,25 +218,33 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jCboProdutoFocusLost
 
-    private void jTxtQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtQuantidadeFocusLost
-        // TODO add your handling code here:
-      TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
-        double valor = produto.getTkslValorUnitario();
-        jTxtValorUnitario.setText(String.valueOf(valor));
-        double quantidade = Double.valueOf(jTxtQuantidade.getText());
-        jTxtTotal.setText(String.valueOf(quantidade * valor));
-
-    }//GEN-LAST:event_jTxtQuantidadeFocusLost
-
     private void jCboProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboProdutoActionPerformed
         // TODO add your handling code here:
-          TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
+        TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
         double valor = produto.getTkslValorUnitario();
         jTxtValorUnitario.setText(String.valueOf(valor));
         double quantidade = Double.valueOf(jTxtQuantidade.getText());
         jTxtTotal.setText(String.valueOf(quantidade * valor));
 
     }//GEN-LAST:event_jCboProdutoActionPerformed
+
+    private void jCboProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCboProdutoItemStateChanged
+        // TODO add your handling code here:
+        jTxtQuantidade.setText("1");
+        TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
+        jTxtValorUnitario.setText( util.doubleStr(produto.getTkslValorUnitario()));
+    }//GEN-LAST:event_jCboProdutoItemStateChanged
+
+    private void jTxtQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtQuantidadeKeyReleased
+        // TODO add your handling code here:
+        if(jTxtQuantidade.getText().isEmpty() == false) {
+        double valor = Double.parseDouble(jTxtValorUnitario.getText());
+        double quantidade = Integer.parseInt(jTxtQuantidade.getText());
+        jTxtTotal.setText(String.valueOf(quantidade * valor));
+        } else {
+            jTxtTotal.setText("0");
+        }
+    }//GEN-LAST:event_jTxtQuantidadeKeyReleased
 
     /**
      * @param args the command line arguments

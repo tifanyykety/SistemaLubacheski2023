@@ -28,6 +28,7 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Consultar Vendedor");
         vendedorControle = new VendedorControle();
+        vendedorDao = new tksl_VendedorDao();
         List lista = vendedorDao.listAll();
         vendedorControle.setList(lista);
         jTable1.setModel(vendedorControle);
@@ -152,20 +153,20 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
     private void tksl_jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConsultarActionPerformed
         // TODO add your handling code here:
         if (tksl_jTxtNome.getText().equals("") && tksl_jTxtNivel.getText().equals("")){
-            List lista = vendedorDao.listAll();
-            vendedorControle.setList(lista);
+            List listaVazia = vendedorDao.listAll();
+            vendedorControle.setList(listaVazia);
         } else {
             if (!tksl_jTxtNome.getText().equals("") && !tksl_jTxtNivel.getText().equals("")){
-                List lista = vendedorDao.listaNomeNivel(tksl_jTxtNome.getText(), tksl_jTxtNivel.getText());
-                vendedorControle.setList(lista);
+                List listaNomeNivel = vendedorDao.listaNomeNivel(tksl_jTxtNome.getText(), tksl_jTxtNivel.getText());
+                vendedorControle.setList(listaNomeNivel);
             } else {
                 if (!tksl_jTxtNome.getText().equals("")){
-                    List lista = vendedorDao.listaNome(tksl_jTxtNome.getText());
-                    vendedorControle.setList(lista);
+                    List listaNome = vendedorDao.listaNome(tksl_jTxtNome.getText());
+                    vendedorControle.setList(listaNome);
                 } else {
                     if (!tksl_jTxtNivel.getText().equals("")){
-                        List lista = vendedorDao.listaNivel(tksl_jTxtNivel.getText());
-                        vendedorControle.setList(lista);
+                        List listaNivel = vendedorDao.listaNivel(tksl_jTxtNivel.getText());
+                        vendedorControle.setList(listaNivel);
                     }
 
                 }

@@ -40,7 +40,7 @@ public class VendasProdControle extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 5;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class VendasProdControle extends AbstractTableModel {
             return vendasProduto.getTkslValorUnitario();
         }
         if (columnIndex == 4) {
-            return vendasProduto.getTkslTotal();
+            return vendasProduto.getTkslQuantidade() * vendasProduto.getTkslValorUnitario();
             
         }
         return "";

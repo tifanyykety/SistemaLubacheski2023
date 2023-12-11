@@ -27,6 +27,7 @@ public class JDlgConsultaUsuario extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Consultar usuario");
         usuarioControle = new UsuarioControle();
+        usuarioDao = new tksl_UsuarioDao();
         List lista = usuarioDao.listAll();
         usuarioControle.setList(lista);
         jTable1.setModel(usuarioControle);
@@ -70,12 +71,6 @@ public class JDlgConsultaUsuario extends javax.swing.JDialog {
 
         jLabel1.setText("Nome");
 
-        tksl_jTxtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tksl_jTxtNomeActionPerformed(evt);
-            }
-        });
-
         tksl_jBtnConsultar.setText("Consultar");
         tksl_jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,12 +79,6 @@ public class JDlgConsultaUsuario extends javax.swing.JDialog {
         });
 
         jLabel2.setText("CPF");
-
-        tksl_jTxtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tksl_jTxtCpfActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,37 +147,29 @@ public class JDlgConsultaUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tksl_jTxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jTxtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tksl_jTxtNomeActionPerformed
-
     private void tksl_jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConsultarActionPerformed
         // TODO add your handling code here:
         if (tksl_jTxtNome.getText().equals("") && tksl_jTxtCpf.getText().equals("")){
-            List lista = usuarioDao.listAll();
-            usuarioControle.setList(lista);
+            List listaVazia = usuarioDao.listAll();
+            usuarioControle.setList(listaVazia);
         } else {
             if (!tksl_jTxtNome.getText().equals("") && !tksl_jTxtCpf.getText().equals("")){
-                List lista = usuarioDao.listaNomeCpf(tksl_jTxtNome.getText(), tksl_jTxtCpf.getText());
-                usuarioControle.setList(lista);
+                List listaNomeCpf = usuarioDao.listaNomeCpf(tksl_jTxtNome.getText(), tksl_jTxtCpf.getText());
+                usuarioControle.setList(listaNomeCpf);
             } else {
                 if (!tksl_jTxtNome.getText().equals("")){
-                    List lista = usuarioDao.listaNome(tksl_jTxtNome.getText());
-                    usuarioControle.setList(lista);
+                    List listaNome = usuarioDao.listaNome(tksl_jTxtNome.getText());
+                    usuarioControle.setList(listaNome);
                 } else {
                     if (!tksl_jTxtCpf.getText().equals("")){
-                        List lista = usuarioDao.listaCpf(tksl_jTxtCpf.getText());
-                        usuarioControle.setList(lista);
+                        List listaCpf = usuarioDao.listaCpf(tksl_jTxtCpf.getText());
+                        usuarioControle.setList(listaCpf);
                     } 
                         
                 }
             }
         }    
     }//GEN-LAST:event_tksl_jBtnConsultarActionPerformed
-
-    private void tksl_jTxtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jTxtCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tksl_jTxtCpfActionPerformed
 
     /**
      * @param args the command line arguments

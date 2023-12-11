@@ -11,12 +11,6 @@ import dao.tksl_ClienteDao;
 import java.util.List;
 import telasPesquisa.ClienteControle;
 
-//import java.text.SimpleDateFormat;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//import javax.swing.text.DefaultFormatterFactory;
-//import view.JDlgCliente;
-//import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -26,8 +20,6 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
     ClienteControle clienteControle;
     tksl_ClienteDao clienteDao = new tksl_ClienteDao();
     
-//    MaskFormatter mascaraCpf, mascaraDataNascimento, mascaraNumeroFone, mascaraRg;
-//    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
     /**
@@ -39,22 +31,10 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
         setTitle("Consulta Cliente");
         setLocationRelativeTo(null);
         clienteControle = new ClienteControle();
+        clienteDao = new tksl_ClienteDao();
         List lista = clienteDao.listAll();
         clienteControle.setList(lista);
         jTable1.setModel(clienteControle);
-        
-//        try {
-//            mascaraCpf = new MaskFormatter("###.###.###-##");
-//            mascaraDataNascimento = new MaskFormatter("##/##/####");
-//            mascaraNumeroFone = new MaskFormatter("(##)#####-####");
-//            mascaraRg = new MaskFormatter("#.###.###");
-//        } catch (ParseException ex) {
-//            Logger.getLogger(JDlgCliente.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        tksl_jFmtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
-//        tksl_jFmtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNascimento));
-//        tksl_jFmtNumeroFone.setFormatterFactory(new DefaultFormatterFactory(mascaraNumeroFone));
-//        tksl_jFmtRg.setFormatterFactory(new DefaultFormatterFactory(mascaraRg));
     }
 
     /**
@@ -182,34 +162,36 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
     private void tksl_jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConsultarActionPerformed
         // TODO add your handling code here:
        if (tksl_jTxtNome.getText().equals("") && tksl_jTxtCpf.getText().equals("") && tksl_jTxtRg.getText().equals("")){
-            List lista = clienteDao.listAll();
-            clienteControle.setList(lista);
+            List listaVazia = clienteDao.listAll();
+            clienteControle.setList(listaVazia);
         } else {
             if (!tksl_jTxtNome.getText().equals("") && !tksl_jTxtCpf.getText().equals("") && !tksl_jTxtRg.getText().equals("")){
-                List lista = clienteDao.listaTudoJunto(tksl_jTxtNome.getText(), tksl_jTxtCpf.getText(), tksl_jTxtRg.getText());
-                clienteControle.setList(lista);
+                List listaTudoJunto = clienteDao.listaTudoJunto(tksl_jTxtNome.getText(), tksl_jTxtCpf.getText(), tksl_jTxtRg.getText());
+                clienteControle.setList(listaTudoJunto);
             } else {
                 if (!tksl_jTxtNome.getText().equals("")){
-                    List lista = clienteDao.listaNome(tksl_jTxtNome.getText());
-                    clienteControle.setList(lista);
+                    List listaNome = clienteDao.listaNome(tksl_jTxtNome.getText());
+                    clienteControle.setList(listaNome);
                 } else {
                     if (!tksl_jTxtCpf.getText().equals("")){
-                        List lista = clienteDao.listaCpf(tksl_jTxtCpf.getText());
-                        clienteControle.setList(lista);
+                        List listaCpf = clienteDao.listaCpf(tksl_jTxtCpf.getText());
+                        clienteControle.setList(listaCpf);
                     } else {
                     if (!tksl_jTxtRg.getText().equals("")){
-                        List lista = clienteDao.listaRg(tksl_jTxtRg.getText());
-                        clienteControle.setList(lista);
+                        List listaRg = clienteDao.listaRg(tksl_jTxtRg.getText());
+                        clienteControle.setList(listaRg);
                     } 
                         
                 }
             }
         }
+       }
     }//GEN-LAST:event_tksl_jBtnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -231,6 +213,7 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JDlgConsultaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+   
         //</editor-fold>
 
         /* Create and display the dialog */

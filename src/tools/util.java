@@ -5,6 +5,9 @@
  */
 package tools;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -58,6 +61,43 @@ public class util {
 
     public static boolean perguntar(String msg) {
         return JOptionPane.showConfirmDialog(null, msg, "Pergunta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION;
+    }
+    
+    public static int strInt(String cad) {
+        return Integer.valueOf(cad);
+    }
+    
+    public static String intStr (int num) {
+        return String.valueOf(num);
+    }
+    
+    public static double strDouble(String cad){
+        try{
+            return Double.parseDouble(cad);
+        } catch (NumberFormatException e){
+            //apresenta o erro de conversão
+            e.printStackTrace();
+            return 0.0; //ou retorna um valor padrão adequado
+        }
+    }
+    
+    public static String doubleStr(double num){
+        return String.valueOf(num);
+    }
+    
+    public static Date StrDate(String cad){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return formato.parse(cad);
+        } catch (ParseException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static String dateStr (Date date){
+        SimpleDateFormat formato = new SimpleDateFormat ("dd/MM/yyyy");
+        return formato.format(date);
     }
 
 }

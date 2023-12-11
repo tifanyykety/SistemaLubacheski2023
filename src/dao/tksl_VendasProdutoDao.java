@@ -5,6 +5,7 @@
  */
 package dao;
 
+import bean.TkslVendas;
 import bean.TkslVendasproduto;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -88,6 +89,15 @@ public class tksl_VendasProdutoDao extends Dao_Abstract {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslVendasproduto.class);
         criteria.add(Restrictions.eq("tksl_fk_venda", idvenda));
+        List listaVenda = criteria.list();
+        session.getTransaction().commit();
+        return listaVenda;
+    }
+    
+       public List listaProdutos(TkslVendas tkslVendas){
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(TkslVendasproduto.class);
+        criteria.add(Restrictions.eq("jbsVenda", tkslVendas));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

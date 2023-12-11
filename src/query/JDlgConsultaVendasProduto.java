@@ -27,6 +27,7 @@ public class JDlgConsultaVendasProduto extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Consultar Vendas do Produto");
         vendasProdControle = new VendasProdControle();
+        vendasProdutoDao = new tksl_VendasProdutoDao();
         List lista = vendasProdutoDao.listAll();
         vendasProdControle.setList(lista);
         jTable1.setModel(vendasProdControle);
@@ -151,20 +152,20 @@ public class JDlgConsultaVendasProduto extends javax.swing.JDialog {
     private void tksl_jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConsultarActionPerformed
         // TODO add your handling code here:
         if (tksl_jTxtQuantidade.getText().equals("") && tksl_jTxtTotal.getText().equals("")){
-            List lista = vendasProdutoDao.listAll();
-            vendasProdControle.setList(lista);
+            List listaVazia = vendasProdutoDao.listAll();
+            vendasProdControle.setList(listaVazia);
         } else {
             if (!tksl_jTxtQuantidade.getText().equals("") && !tksl_jTxtTotal.getText().equals("")){
-                List lista = vendasProdutoDao.listaQuantTotal(tksl_jTxtQuantidade.getText(), tksl_jTxtTotal.getText());
-                vendasProdControle.setList(lista);
+                List listaQuantTotal = vendasProdutoDao.listaQuantTotal(tksl_jTxtQuantidade.getText(), tksl_jTxtTotal.getText());
+                vendasProdControle.setList(listaQuantTotal);
             } else {
                 if (!tksl_jTxtQuantidade.getText().equals("")){
-                    List lista = vendasProdutoDao.listaQuantidade(tksl_jTxtQuantidade.getText());
-                    vendasProdControle.setList(lista);
+                    List listaQuantidade = vendasProdutoDao.listaQuantidade(tksl_jTxtQuantidade.getText());
+                    vendasProdControle.setList(listaQuantidade);
                 } else {
                     if (!tksl_jTxtTotal.getText().equals("")){
-                        List lista = vendasProdutoDao.listaTotal(tksl_jTxtTotal.getText());
-                        vendasProdControle.setList(lista);
+                        List listaTotal = vendasProdutoDao.listaTotal(tksl_jTxtTotal.getText());
+                        vendasProdControle.setList(listaTotal);
                     }
 
                 }

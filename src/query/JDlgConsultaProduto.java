@@ -26,6 +26,7 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Consultar Produto");
         produtoControle = new ProdutoControle();
+        produtoDao = new tksl_ProdutoDao();
         List lista = produtoDao.listAll();
         produtoControle.setList(lista);
         jTable1.setModel(produtoControle);
@@ -150,20 +151,20 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
     private void tksl_jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConsultarActionPerformed
         // TODO add your handling code here:
         if (tksl_jTxtNome.getText().equals("") && tksl_jTxtTime.getText().equals("")){
-            List lista = produtoDao.listAll();
-            produtoControle.setList(lista);
+            List listaVazia = produtoDao.listAll();
+            produtoControle.setList(listaVazia);
         } else {
             if (!tksl_jTxtNome.getText().equals("") && !tksl_jTxtTime.getText().equals("")){
-                List lista = produtoDao.listaNomeTime(tksl_jTxtNome.getText(), tksl_jTxtTime.getText());
-                produtoControle.setList(lista);
+                List listaNomeTime = produtoDao.listaNomeTime(tksl_jTxtNome.getText(), tksl_jTxtTime.getText());
+                produtoControle.setList(listaNomeTime);
             } else {
                 if (!tksl_jTxtNome.getText().equals("")){
-                    List lista = produtoDao.listaNome(tksl_jTxtNome.getText());
-                    produtoControle.setList(lista);
+                    List listaNome = produtoDao.listaNome(tksl_jTxtNome.getText());
+                    produtoControle.setList(listaNome);
                 } else {
                     if (!tksl_jTxtTime.getText().equals("")){
-                        List lista = produtoDao.listaTime(tksl_jTxtTime.getText());
-                        produtoControle.setList(lista);
+                        List listaTime = produtoDao.listaTime(tksl_jTxtTime.getText());
+                        produtoControle.setList(listaTime);
                     }
 
                 }

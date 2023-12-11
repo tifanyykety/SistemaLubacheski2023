@@ -203,7 +203,6 @@ public class JDlgVendedorIA extends javax.swing.JDialog {
             
             vendedor = viewBean();
             vendedorDao.insert(vendedor);
-            limparCampos();
             setVisible(false);
         } else if (getTitle().equals("Alterando")) {
             vendedor = viewBean();

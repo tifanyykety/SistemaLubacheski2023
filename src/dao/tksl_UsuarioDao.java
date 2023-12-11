@@ -48,42 +48,45 @@ public class tksl_UsuarioDao extends Dao_Abstract {
         criteria.add(Restrictions.eq("idusuario", id));
         List lista = criteria.list();
         session.getTransaction().commit();
-        return lista; 
-        
+        return lista;
+
     }
 
     @Override
-    public List listAll() {  
+    public List listAll() {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslUsuarios.class);
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
     }
-    
-    public List listaNome(String nome){
-    Criteria criteria = session.createCriteria(TkslUsuarios.class);
-    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
-    List listaNome = criteria.list();
-    session.getTransaction().commit();
-    return listaNome;
+
+    public List listaNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(TkslUsuarios.class);
+        criteria.add(Restrictions.like("tkslNome", "%" + nome + "%"));
+        List listaNome = criteria.list();
+        session.getTransaction().commit();
+        return listaNome;
     }
-    
-    public List listaCpf(String cpf){
-    Criteria criteria = session.createCriteria(TkslUsuarios.class);
-    criteria.add(Restrictions.like("tksl_cpf", "%"+cpf+"%"));
-    List listaCpf = criteria.list(); //salva os resultados obtidos dentro de uma lista
-    session.getTransaction().commit();
-    return listaCpf;
+
+    public List listaCpf(String cpf) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(TkslUsuarios.class);
+        criteria.add(Restrictions.like("tkslCpf", "%" + cpf + "%"));
+        List listaCpf = criteria.list(); //salva os resultados obtidos dentro de uma lista
+        session.getTransaction().commit();
+        return listaCpf;
     }
-    
-    public List listaNomeCpf(String nome, String cpf){
-    Criteria criteria = session.createCriteria(TkslUsuarios.class);
-    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
-    criteria.add(Restrictions.like("tksl_cpf", "%"+cpf+"%"));
-    List listaNomeCpf = criteria.list();
-    session.getTransaction().commit();
-    return listaNomeCpf;
+
+    public List listaNomeCpf(String nome, String cpf) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(TkslUsuarios.class);
+        criteria.add(Restrictions.like("tkslNome", "%" + nome + "%"));
+        criteria.add(Restrictions.like("tkslCpf", "%" + cpf + "%"));
+        List listaNomeCpf = criteria.list();
+        session.getTransaction().commit();
+        return listaNomeCpf;
     }
 
     public List login(String usuario, String senha) {

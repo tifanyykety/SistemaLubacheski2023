@@ -23,6 +23,7 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
 
     MaskFormatter mascaraModeloAno;
     util util;
+    TkslProduto tkslproduto = new TkslProduto();
 
     TkslProduto produto;
     tksl_ProdutoDao produtoDao;
@@ -60,19 +61,16 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
     }
 
     public TkslProduto viewBean() {
-        produto = new TkslProduto();
-        produto.setTkslIdProduto(Integer.parseInt(tksl_jTxtId.getText()));
-        produto.setTkslCor(tksl_jTxtCor.getText());
+        int id = Integer.valueOf(tksl_jTxtId.getText());
+        produto.setTkslIdProduto(id);
         produto.setTkslNome(tksl_jTxtNome.getText());
+        double valor = Double.parseDouble(tksl_jTxtValorUnitario.getText());
+        produto.setTkslValorUnitario(valor);
         produto.setTkslNumero(tksl_jTxtNumero.getText());
         produto.setTkslTamanho(tksl_jTxtTamanho.getText());
         produto.setTkslTime(tksl_jTxtTime.getText());
-        produto.setTkslValorUnitario(Double.parseDouble(tksl_jTxtValorUnitario.getText()));
-        try {
-            produto.setTkslModeloAno(dateFormat.parse(tksl_jFmtModeloAno.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(JDlgProdutoIA.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        produto.setTkslCor(tksl_jTxtCor.getText());
+
         return produto;
     }
 
@@ -279,12 +277,10 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
         if (getTitle().equals("Incluindo")) {
             produto = viewBean();
             produtoDao.insert(produto);
-            limparCampos();
+            util.mensagem("Incluindo");
             setVisible(false);
         } else if (getTitle().equals("Alterando")) {
-            produto = viewBean();
             produtoDao.update(produto);
-            limparCampos();
             tksl_jTxtId.setEnabled(false);
             util.mensagem("Alterado");
             setVisible(false);
