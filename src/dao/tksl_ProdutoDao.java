@@ -63,7 +63,7 @@ public class tksl_ProdutoDao extends Dao_Abstract {
     public List listaNome(String nome){
     session.beginTransaction();
     Criteria criteria = session.createCriteria(TkslProduto.class);
-    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
+    criteria.add(Restrictions.like("tkslNome", "%"+nome+"%"));
     List listaNome = criteria.list();
     session.getTransaction().commit();
     return listaNome;
@@ -72,7 +72,7 @@ public class tksl_ProdutoDao extends Dao_Abstract {
     public List listaTime(String time){
     session.beginTransaction();
     Criteria criteria = session.createCriteria(TkslProduto.class);
-    criteria.add(Restrictions.like("tksl_time", "%"+time+"%"));
+    criteria.add(Restrictions.like("tkslTime", "%"+time+"%"));
     List listaTime = criteria.list(); //salva os resultados obtidos dentro de uma lista
     session.getTransaction().commit();
     return listaTime;
@@ -81,8 +81,8 @@ public class tksl_ProdutoDao extends Dao_Abstract {
     public List listaNomeTime(String nome, String time){
     session.beginTransaction();
     Criteria criteria = session.createCriteria(TkslProduto.class);
-    criteria.add(Restrictions.like("tksl_nome", "%"+nome+"%"));
-    criteria.add(Restrictions.like("tksl_time", "%"+time+"%"));
+    criteria.add(Restrictions.like("tkslNome", "%"+nome+"%"));
+    criteria.add(Restrictions.like("tkslTime", "%"+time+"%"));
     List listaNomeTime = criteria.list();
     session.getTransaction().commit();
     return listaNomeTime;

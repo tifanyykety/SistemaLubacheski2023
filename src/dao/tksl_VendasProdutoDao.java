@@ -63,7 +63,7 @@ public class tksl_VendasProdutoDao extends Dao_Abstract {
     public List listaQuantidade(String quantidade){
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslVendasproduto.class);
-        criteria.add(Restrictions.like("tksl_quantidade", "%"+quantidade+"%"));
+        criteria.add(Restrictions.like("tkslQuantidade", "%"+quantidade+"%"));
         List listaQuantidade = criteria.list();
         session.getTransaction().commit();
         return listaQuantidade;
@@ -72,7 +72,7 @@ public class tksl_VendasProdutoDao extends Dao_Abstract {
     public List listaTotal(String total){
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslVendasproduto.class);
-        criteria.add(Restrictions.like("tksl_total", "%"+total+"%"));
+        criteria.add(Restrictions.like("tkslTotal", "%"+total+"%"));
         List listaTotal = criteria.list(); //salva os resultados obtidos dentro de uma lista
         session.getTransaction().commit();
         return listaTotal;
@@ -81,8 +81,8 @@ public class tksl_VendasProdutoDao extends Dao_Abstract {
     public List listaQuantTotal(String quantidade, String total){
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslVendasproduto.class);
-        criteria.add(Restrictions.like("tksl_quantidade", "%"+quantidade+"%"));
-        criteria.add(Restrictions.like("tksl_total", "%"+total+"%"));
+        criteria.add(Restrictions.like("tkslQuantidade", "%"+quantidade+"%"));
+        criteria.add(Restrictions.like("tkslTotal", "%"+total+"%"));
         List listaQuantTotal = criteria.list();
         session.getTransaction().commit();
         return listaQuantTotal;
