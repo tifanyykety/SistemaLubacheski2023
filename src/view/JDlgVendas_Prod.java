@@ -3,8 +3,8 @@ package view;
 import telasPesquisa.VendasProdControle;
 import bean.TkslProduto;
 import bean.TkslVendasproduto;
-import com.mysql.jdbc.Util;
 import dao.tksl_ProdutoDao;
+import java.util.ArrayList;
 import java.util.List;
 import tools.util;
 
@@ -29,7 +29,7 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
         jTxtTotal.setEnabled(false);
         jTxtValorUnitario.setEditable(false);
 
-        List listaVP;
+        List listaVP=new ArrayList();
         listaVP = produtoDAO.listAll();
         for (int i = 0; i < listaVP.size(); i++) {
             jCboProduto.addItem((TkslProduto) listaVP.get(i));
@@ -39,7 +39,7 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
 
     }
 
-    public void setTelaAnterior(JDlgVendas jDlgVendas, int codigoVenda) {
+    public void setTelaAnterior(JDlgVendas jDlgVendas) {
         this.jDlgVendas = jDlgVendas;
 //        this.codigoVenda = codigoVenda;
     }
@@ -184,12 +184,12 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
         TkslVendasproduto vnp = new TkslVendasproduto();
-        //vnp.setTksl((TkslProduto) jCboProduto.getSelectedItem());
+        //vnp.setTkslProduto((TkslProduto) jCboProduto.getSelectedItem());
         vnp.setTkslQuantidade(Integer.valueOf(jTxtQuantidade.getText()));
         vnp.setTkslValorUnitario(Double.parseDouble(jTxtValorUnitario.getText()));
         vnp.setTkslVendas(jDlgVendas.venda);
         jDlgVendas.vendasProdControle.addList(vnp);
-        jDlgVendas.paseTotal(Double.parseDouble(jTxtTotal.getText()));
+        jDlgVendas.paseTotal(jTxtTotal.getText());
         setVisible(false);
 
     }//GEN-LAST:event_jBtnOkActionPerformed
