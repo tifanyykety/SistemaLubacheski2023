@@ -225,12 +225,11 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="tksl_jBtnExcluir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tksl_jBtnConfirmar" min="-2" pref="115" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="tksl_jBtnConfirmar" min="-2" pref="138" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="tksl_jBtnCancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tksl_jBtnPesquisar" min="-2" pref="107" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="tksl_jBtnPesquisar" min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -241,15 +240,15 @@
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tksl_jBtnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tksl_jBtnIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tksl_jBtnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tksl_jBtnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tksl_jBtnConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tksl_jBtnPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="tksl_jBtnIncluir" pref="35" max="32767" attributes="0"/>
+                          <Component id="tksl_jBtnAlterar" pref="35" max="32767" attributes="0"/>
+                          <Component id="tksl_jBtnExcluir" pref="35" max="32767" attributes="0"/>
+                          <Component id="tksl_jBtnConfirmar" pref="35" max="32767" attributes="0"/>
+                          <Component id="tksl_jBtnCancelar" pref="35" max="32767" attributes="0"/>
+                          <Component id="tksl_jBtnPesquisar" alignment="0" pref="35" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>

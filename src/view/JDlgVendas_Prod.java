@@ -11,11 +11,8 @@ import tools.util;
 public class JDlgVendas_Prod extends javax.swing.JDialog {
 
     JDlgVendas jDlgVendas;
-    private int codigoVenda;
-    TkslProduto produto;
     tksl_ProdutoDao produtoDAO;
     util util;
-
 
     VendasProdControle vendaProdCont;
 
@@ -26,10 +23,7 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         produtoDAO = new tksl_ProdutoDao();
 
-        jTxtTotal.setEnabled(false);
-        jTxtValorUnitario.setEditable(false);
-
-        List listaVP=new ArrayList();
+        List listaVP = new ArrayList();
         listaVP = produtoDAO.listAll();
         for (int i = 0; i < listaVP.size(); i++) {
             jCboProduto.addItem((TkslProduto) listaVP.get(i));
@@ -41,7 +35,26 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
 
     public void setTelaAnterior(JDlgVendas jDlgVendas) {
         this.jDlgVendas = jDlgVendas;
-//        this.codigoVenda = codigoVenda;
+    }
+
+    public TkslVendasproduto viewBean() {
+        TkslVendasproduto vendaprod = new TkslVendasproduto();
+        int quantidade = util.strInt(jTxtQuantidade.getText());
+        double valorU = util.strDouble(jTxtValorUnitario.getText());
+        vendaprod.setTkslProduto((TkslProduto) jCboProduto.getSelectedItem());
+        vendaprod.setTkslValorUnitario(valorU);
+        vendaprod.setTkslQuantidade(quantidade);
+        vendaprod.setTkslTotal(util.strDouble(jTxtTotal.getSelectedText()));
+
+        return vendaprod;
+    }
+
+    public void beanView(TkslVendasproduto vendaprod) {
+        String total = util.doubleStr(vendaprod.getTkslValorUnitario());
+        jCboProduto.setSelectedItem(vendaprod.getTkslProduto());
+        jTxtQuantidade.setText(util.intStr(vendaprod.getTkslQuantidade()));
+        jTxtValorUnitario.setText(util.doubleStr(vendaprod.getTkslValorUnitario()));
+        jTxtTotal.setText(util.doubleStr(vendaprod.getTkslTotal()));
     }
 
     /**
@@ -184,14 +197,19 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
         TkslVendasproduto vnp = new TkslVendasproduto();
-        //vnp.setTkslProduto((TkslProduto) jCboProduto.getSelectedItem());
+        vnp.setTkslProduto((TkslProduto) jCboProduto.getSelectedItem());
         vnp.setTkslQuantidade(Integer.valueOf(jTxtQuantidade.getText()));
         vnp.setTkslValorUnitario(Double.parseDouble(jTxtValorUnitario.getText()));
-        vnp.setTkslVendas(jDlgVendas.venda);
-        jDlgVendas.vendasProdControle.addList(vnp);
-        jDlgVendas.paseTotal(jTxtTotal.getText());
+        vnp.setTkslTotal(util.strDouble(jTxtTotal.getText()));
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+            jDlgVendas.vendasProdControle.addList(vnp);
+            jDlgVendas.paseTotal(jTxtTotal.getText());
+        } else {
+            jDlgVendas.vendasProdControle.updateBean(jDlgVendas.getSelectedRowProd(), vnp);
+            jDlgVendas.paseTotal(jTxtTotal.getText());
+        }
         setVisible(false);
-
+        util.limparCampos(jTxtQuantidade);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -210,7 +228,7 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
 
     private void jCboProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jCboProdutoFocusLost
         // TODO add your handling code here:
-         TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
+        TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
         double valor = produto.getTkslValorUnitario();
         jTxtValorUnitario.setText(String.valueOf(valor));
         double quantidade = Double.valueOf(jTxtQuantidade.getText());
@@ -232,15 +250,15 @@ public class JDlgVendas_Prod extends javax.swing.JDialog {
         // TODO add your handling code here:
         jTxtQuantidade.setText("1");
         TkslProduto produto = (TkslProduto) jCboProduto.getSelectedItem();
-        jTxtValorUnitario.setText( util.doubleStr(produto.getTkslValorUnitario()));
+        jTxtValorUnitario.setText(util.doubleStr(produto.getTkslValorUnitario()));
     }//GEN-LAST:event_jCboProdutoItemStateChanged
 
     private void jTxtQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtQuantidadeKeyReleased
         // TODO add your handling code here:
-        if(jTxtQuantidade.getText().isEmpty() == false) {
-        double valor = Double.parseDouble(jTxtValorUnitario.getText());
-        double quantidade = Integer.parseInt(jTxtQuantidade.getText());
-        jTxtTotal.setText(String.valueOf(quantidade * valor));
+        if (jTxtQuantidade.getText().isEmpty() == false) {
+            double valor = Double.parseDouble(jTxtValorUnitario.getText());
+            double quantidade = Integer.parseInt(jTxtQuantidade.getText());
+            jTxtTotal.setText(String.valueOf(quantidade * valor));
         } else {
             jTxtTotal.setText("0");
         }

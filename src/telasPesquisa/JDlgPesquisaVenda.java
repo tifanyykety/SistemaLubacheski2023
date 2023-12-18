@@ -24,7 +24,7 @@ public class JDlgPesquisaVenda extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Pesquisar Cliente");
+        setTitle("Pesquisar Venda");
 
         pesquisarVenda = new VendaControle();
         VendaDAO = new tksl_VendasDao();
@@ -55,7 +55,7 @@ public class JDlgPesquisaVenda extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/ok.png"))); // NOI18N
+        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok (2).png"))); // NOI18N
         jBtnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnOkActionPerformed(evt);
@@ -80,7 +80,7 @@ public class JDlgPesquisaVenda extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/cancelar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir_1.png"))); // NOI18N
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +110,7 @@ public class JDlgPesquisaVenda extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnOk))
                 .addGap(0, 0, Short.MAX_VALUE))
         );

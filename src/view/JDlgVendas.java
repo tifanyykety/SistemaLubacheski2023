@@ -16,6 +16,7 @@ import dao.tksl_VendedorDao;
 import bean.TkslVendas;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,65 +47,44 @@ public class JDlgVendas extends javax.swing.JDialog {
         initComponents();
         setTitle("Vendas");
         setLocationRelativeTo(null);
-        util.habilitar(false, tksl_jTxtId, tksl_jFmtData, tksl_jFmtTotal,
-                tksl_jCboCliente, tksl_jCboVendedor, tksl_jBtnCancelar, tksl_jBtnConfirmar,
-                tksl_jBtnAlterarProd, tksl_jBtnExcluirProd, tksl_jBtnIncluirProd);
-        util.habilitar(true, tksl_jBtnIncluir, tksl_jBtnAlterar, tksl_jBtnExcluir, tksl_jBtnPesquisar);
-
+        Habilitar(false);
+        limpar();
+        venda = new TkslVendas();
+        cliente = new TkslCliente();
+        vendedor = new TkslVendedor();
+        vendaDAO = new tksl_VendasDao();
+        clienteDAO = new tksl_ClienteDao();
+        vendedorDAO = new tksl_VendedorDao();
+        vendaProdutoDAO = new tksl_VendasProdutoDao();
+        vendaProduto = new TkslVendasproduto();
+        incluindo = false;
+        vendasProdControle = new VendasProdControle();
+        vendasProdControle.setList(new ArrayList());
+        jTable1.setModel(vendasProdControle);
         try {
-            mascaraTotal = new MaskFormatter("####.##");
+            // mascaraTotal = new MaskFormatter("####.##");
             mascaraData = new MaskFormatter("##/##/####");
         } catch (ParseException ex) {
             Logger.getLogger(JDlgUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tksl_jFmtTotal.setFormatterFactory(new DefaultFormatterFactory(mascaraTotal));
+        // tksl_jFmtTotal.setFormatterFactory(new DefaultFormatterFactory(mascaraTotal));
         tksl_jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
 
-        List listC;
+        List listC = new ArrayList();
         listC = clienteDAO.listAll();
         for (int i = 0; i < listC.size(); i++) {
             cliente = (TkslCliente) listC.get(i);
             tksl_jCboCliente.addItem(cliente);
         }
 
-        List listV;
+        List listV = new ArrayList();
         listV = vendedorDAO.listAll();
         for (int i = 0; i < listV.size(); i++) {
             vendedor = (TkslVendedor) listV.get(i);
             tksl_jCboVendedor.addItem(vendedor);
         }
-//        venda = new TkslVendas();
-//        cliente = new TkslCliente();
-//        vendedor = new TkslVendedor();
-//        vendaDAO = new tksl_VendasDao();
-//        clienteDAO = new tksl_ClienteDao();
-//        vendedorDAO = new tksl_VendedorDao();
-//        vendaProdutoDAO = new tksl_VendasProdutoDao();
-//        vendaProduto = new TkslVendasproduto();
-//        incluindo = false;
-//        vendasProdControle = new VendasProdControle();
-//        vendasProdControle.setList(new ArrayList());
-//        jTable1.setModel(vendasProdControle);
-//        List listC;
-//        listC = clienteDAO.listAll();
-//        for (int i = 0; i < listC.size(); i++) {
-//            cliente = (TkslCliente) listC.get(i);
-//            tksl_jCboCliente.addItem(cliente);
-//        }
-//
-//        List listV;
-//        listV = vendedorDAO.listAll();
-//        for (int i = 0; i < listV.size(); i++) {
-//            vendedor = (TkslVendedor) listV.get(i);
-//            tksl_jCboVendedor.addItem(vendedor);
-//        }
-//
-//        try {
-//            mascaraData = new MaskFormatter("##/##/####");
-//        } catch (ParseException ex) {
-//            Logger.getLogger(JDlgVendas.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        tksl_jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
+
+        limpar();
     }
 
     public void Habilitar(boolean valor) {
@@ -122,15 +102,14 @@ public class JDlgVendas extends javax.swing.JDialog {
         double total = Double.parseDouble(tksl_jFmtTotal.getText());
         venda.setTkslTotal(total);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-//        venda.setTkslCliente((String) tksl_jCboCliente.getSelectedItem());
         try {
             venda.setTkslData(formatoData.parse(tksl_jFmtData.getText()));
         } catch (ParseException ex) {
             System.out.print("Realizado com sucesso:" + ex.getMessage());
         }
         venda.setTkslTotal(Double.valueOf(tksl_jFmtTotal.getText()));
-        venda.setTkslVendedor((String) tksl_jCboVendedor.getSelectedItem());
-        venda.setTkslCliente((String) tksl_jCboCliente.getSelectedItem());
+        venda.setTkslVendedor((TkslVendedor) tksl_jCboVendedor.getSelectedItem());
+        venda.setTkslCliente((TkslCliente) tksl_jCboCliente.getSelectedItem());
         return venda;
     }
 
@@ -151,13 +130,17 @@ public class JDlgVendas extends javax.swing.JDialog {
         return jTable1.getSelectedRow();
     }
 
-    public void paseTotal(String total) {
-        tksl_jFmtTotal.setText(total);
+    public void paseTotal(String totalVP) {
+        double total = util.strDouble(totalVP) + util.strDouble(tksl_jFmtTotal.getText());
+        tksl_jFmtTotal.setText(util.doubleStr(total));
     }
 
     public void limpar() {
-        util.limparCampos(tksl_jTxtId, tksl_jFmtTotal, tksl_jFmtData, tksl_jCboVendedor,
-                tksl_jCboCliente);
+        util.limparCampos(tksl_jTxtId, tksl_jFmtTotal, tksl_jFmtData
+        );
+        tksl_jCboVendedor.setSelectedIndex(-1);
+        tksl_jCboCliente.setSelectedIndex(-1);
+
     }
 
     /**
@@ -306,12 +289,11 @@ public class JDlgVendas extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(tksl_jBtnExcluir)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(tksl_jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(tksl_jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(tksl_jBtnCancelar)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(tksl_jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                    .addComponent(tksl_jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,14 +301,14 @@ public class JDlgVendas extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(6, 6, 6)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tksl_jBtnAlterar)
-                        .addComponent(tksl_jBtnIncluir)
-                        .addComponent(tksl_jBtnExcluir)
-                        .addComponent(tksl_jBtnCancelar)
-                        .addComponent(tksl_jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tksl_jBtnPesquisar))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tksl_jBtnIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(tksl_jBtnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(tksl_jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(tksl_jBtnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(tksl_jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(tksl_jBtnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -404,6 +386,7 @@ public class JDlgVendas extends javax.swing.JDialog {
 
     private void tksl_jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnIncluirProdActionPerformed
         // TODO add your handling code here:
+        jDlgVendasProd = new JDlgVendas_Prod(null, true);
         jDlgVendasProd.setTitle("Incluir uma Venda");
         jDlgVendasProd.setTelaAnterior(this);
         jDlgVendasProd.setVisible(true);
@@ -411,30 +394,13 @@ public class JDlgVendas extends javax.swing.JDialog {
 
     private void tksl_jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnAlterarProdActionPerformed
         // TODO add your handling code here:
-        //codigo para inserir no banco o vendaProd
-//        int linha = jTable1.getSelectedRow();
-//        if (linha == -1) {
-//            util.mensagem("Nenhuma linha selecionada");
-//        } else {
-//            vendasProdControle.removeList(linha);
-//            JDlgVendas_Prod jDlgVendas_Prod = new JDlgVendas_Prod(null, true);
-//            jDlgVendas_Prod.setTelaAnterior(this, Integer.valueOf(tksl_jTxtId.getText()));
-//            jDlgVendas_Prod.setVisible(true);
-//        }
-
-        /*Codigo anterior 
-        jDlgVendasProd.setTitle("Alteração de produtos");
+        jDlgVendasProd = new JDlgVendas_Prod(null, true);
+        if (getSelectedRowProd() == -1) {
+            util.mensagem("Selecione uma linha antes de alterar");
+        }
+        jDlgVendasProd.setTitle("Alterando Produto");
         jDlgVendasProd.setTelaAnterior(this);
-        int linSel = jTable1.getSelectedRow();
-        JbsVendaProduto jbsVProdutos = (JbsVendaProduto) vendasProdutoControle.getBean(linSel);
-        jDlgVendasProduto.beanView(jbsVProdutos);
-        jDlgVendasProduto.setVisible(true);*/
-        //gambiara para a tela somente, não modifica no bd
-        jDlgVendasProd.setTitle("Alteração de produtos");
-        jDlgVendasProd.setTelaAnterior(this);
-        int linSel = jTable1.getSelectedRow();
-        vendasProdControle.removeList(linSel);
-        jDlgVendasProd.setTelaAnterior(this);
+        jDlgVendasProd.beanView(vendasProdControle.getBean(getSelectedRowProd()));
         jDlgVendasProd.setVisible(true);
     }//GEN-LAST:event_tksl_jBtnAlterarProdActionPerformed
 
@@ -447,7 +413,6 @@ public class JDlgVendas extends javax.swing.JDialog {
             if (util.perguntar("Deseja excluir?")) {
                 vendasProdControle.removeList(jTable1.getSelectedRow());
                 util.mensagem("Excluido");
-
             } else {
                 util.mensagem("exclusão cancelada");
             }
@@ -473,11 +438,18 @@ public class JDlgVendas extends javax.swing.JDialog {
     }//GEN-LAST:event_tksl_jBtnIncluirActionPerformed
 
     private void tksl_jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnExcluirActionPerformed
+        venda = viewBean();
+        vendaProdutoDAO = new tksl_VendasProdutoDao();
         if (venda != null) {
             if (util.perguntar("Deseja excluir?")) {
-                venda = viewBean();
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    vendaProduto = vendasProdControle.getBean(linha);
+                    vendaProduto.setTkslVendas(venda);
+                    vendaProdutoDAO.delete(vendaProduto);
+                }
                 vendaDAO.delete(venda);
                 limpar();
+                vendasProdControle.limparTabela();
                 venda = null;
                 util.mensagem("Excluido");
             } else {
@@ -504,21 +476,32 @@ public class JDlgVendas extends javax.swing.JDialog {
 
     private void tksl_jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConfirmarActionPerformed
         venda = viewBean();
-        if (incluindo == true) {
-            /*for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
-                vendaProduto = vendasProdControle.getBean(linha);
-                vendaProduto.setTkslVendas(venda);
-                vendaProdutoDAO.insert(vendaProduto);
-            }*/
+        vendaDAO = new tksl_VendasDao();
+        vendaProdutoDAO = new tksl_VendasProdutoDao();
+        vendaProduto = new TkslVendasproduto();
+        if (incluindo == true && venda != null) {
             vendaDAO.insert(venda);
-        } else {
-            /*
             for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
                 vendaProduto = vendasProdControle.getBean(linha);
                 vendaProduto.setTkslVendas(venda);
-                vendaProdutoDAO.update(vendaProduto);}
-             */
+                vendaProdutoDAO.insert(vendaProduto);
+            }
+            util.mensagem("Produtos vendidos incluidos");
+        } else {
             vendaDAO.update(venda);
+            //apagam os valores que estão na tabela
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                vendaProduto = vendasProdControle.getBean(linha);
+                vendaProduto.setTkslVendas(venda);
+                vendaProdutoDAO.delete(vendaProduto);
+            }
+            //insere de novo os valores que estão na tabela
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                vendaProduto = vendasProdControle.getBean(linha);
+                vendaProduto.setTkslVendas(venda);
+                vendaProdutoDAO.insert(vendaProduto);
+            }
+
         }
 //            
 //        
@@ -526,6 +509,8 @@ public class JDlgVendas extends javax.swing.JDialog {
         venda = null;
         incluindo = false;
         limpar();
+        vendasProdControle.limparTabela();
+
         // TODO add your handling code here:
     }//GEN-LAST:event_tksl_jBtnConfirmarActionPerformed
 

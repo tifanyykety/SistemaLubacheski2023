@@ -7,6 +7,7 @@ package telasNovas;
 
 import bean.TkslVendedor;
 import dao.tksl_VendedorDao;
+import java.util.List;
 import tools.util;
 
 /**
@@ -14,9 +15,9 @@ import tools.util;
  * @author u07883409131
  */
 public class JDlgVendedorIA extends javax.swing.JDialog {
-    
+
     util util;
-    
+
     JDlgVendedorNovo jDlgPesquisaVendedorNovo;
     TkslVendedor vendedor;
     tksl_VendedorDao vendedorDao;
@@ -31,9 +32,9 @@ public class JDlgVendedorIA extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         vendedor = new TkslVendedor();
         vendedorDao = new tksl_VendedorDao();
-        
+
     }
-    
+
     public void limparCampos() {
         util.limparCampos(tksl_jTxtId,
                 tksl_jTxtNome,
@@ -41,11 +42,11 @@ public class JDlgVendedorIA extends javax.swing.JDialog {
                 tksl_jCboNivel,
                 jChbAtivo);
     }
-    
+
     public void setTelaAnterior(JDlgVendedorNovo jDlgPesquisaVendedorNovo) {
-        jDlgPesquisaVendedorNovo = jDlgPesquisaVendedorNovo;
+        this.jDlgPesquisaVendedorNovo = jDlgPesquisaVendedorNovo;
     }
-    
+
     public TkslVendedor viewBean() {
         vendedor.setTkslIdVendedor(Integer.parseInt(tksl_jTxtId.getText()));
         vendedor.setTkslNome(tksl_jTxtNome.getText());
@@ -57,9 +58,9 @@ public class JDlgVendedorIA extends javax.swing.JDialog {
             vendedor.setTkslAtivo("Não");
         }
         return vendedor;
-        
+
     }
-    
+
     public void beanView(TkslVendedor v) {
         tksl_jTxtId.setText(String.valueOf(v.getTkslIdVendedor()));
         tksl_jTxtNome.setText(String.valueOf(v.getTkslNome()));
@@ -199,15 +200,20 @@ public class JDlgVendedorIA extends javax.swing.JDialog {
 
     private void tksl_jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        vendedor = new TkslVendedor();
+        vendedorDao = new tksl_VendedorDao();
         if (getTitle().equals("Incluindo")) {
-            
             vendedor = viewBean();
             vendedorDao.insert(vendedor);
+            List lista = vendedorDao.listAll();
+            jDlgPesquisaVendedorNovo.controleVendedor.setList(lista);
             setVisible(false);
         } else if (getTitle().equals("Alterando")) {
             vendedor = viewBean();
             tksl_jTxtId.setEnabled(false);
             vendedorDao.update(vendedor);
+            List lista = vendedorDao.listAll();
+            jDlgPesquisaVendedorNovo.controleVendedor.setList(lista);
             setVisible(false);
         } else {
             util.mensagem("Operação não pode ser ");

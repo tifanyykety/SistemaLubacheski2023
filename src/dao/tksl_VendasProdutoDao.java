@@ -100,7 +100,7 @@ public class tksl_VendasProdutoDao extends Dao_Abstract {
        public List listaProdutos(TkslVendas tkslVendas){
         session.beginTransaction();
         Criteria criteria = session.createCriteria(TkslVendasproduto.class);
-        criteria.add(Restrictions.eq("jbsVenda", tkslVendas));
+        criteria.add(Restrictions.eq("tkslVendas", tkslVendas));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

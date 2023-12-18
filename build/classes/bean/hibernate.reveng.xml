@@ -41,10 +41,10 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="db_tifany_lubacheski"/>
-  <table-filter match-name="tksl_cliente"/>
   <table-filter match-name="tksl_produto"/>
-  <table-filter match-name="tksl_vendasproduto"/>
   <table-filter match-name="tksl_vendas"/>
-  <table-filter match-name="tksl_vendedor"/>
+  <table-filter match-name="tksl_vendasproduto"/>
   <table-filter match-name="tksl_usuarios"/>
+  <table-filter match-name="tksl_cliente"/>
+  <table-filter match-name="tksl_vendedor"/>
 </hibernate-reverse-engineering>

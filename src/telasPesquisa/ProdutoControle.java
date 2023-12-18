@@ -71,6 +71,7 @@ public class ProdutoControle extends AbstractTableModel {
         return "";
     }
 //ValorUnitario
+
     public String getColumnName(int column) {
         switch (column) {
             case 0:

@@ -9,10 +9,12 @@ import bean.TkslProduto;
 import dao.tksl_ProdutoDao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import telasPesquisa.ProdutoControle;
 import tools.util;
 
 /**
@@ -70,6 +72,11 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
         produto.setTkslTamanho(tksl_jTxtTamanho.getText());
         produto.setTkslTime(tksl_jTxtTime.getText());
         produto.setTkslCor(tksl_jTxtCor.getText());
+        try {
+            produto.setTkslModeloAno(dateFormat.parse(tksl_jFmtModeloAno.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgProdutoIA.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return produto;
     }
@@ -85,8 +92,8 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
         tksl_jTxtValorUnitario.setText(String.valueOf(produto.getTkslValorUnitario()));
     }
 
-    public void setTelaAnterior(JDlgProdutoNovo jDlgPesquisprodutoNovo) {
-        jDlgPesquisprodutoNovo = jDlgPesquisProdutoNovo;
+    public void setTelaAnterior(JDlgProdutoNovo jDlgPesquisprodutoN) {
+        this.jDlgPesquisProdutoNovo = jDlgPesquisprodutoN;
     }
 
     /**
@@ -274,15 +281,22 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
 
     private void tksl_jBtnConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jBtnConfirmar1ActionPerformed
         // TODO add your handling code here:
+        produto = new TkslProduto();
+        produtoDao = new tksl_ProdutoDao();
         if (getTitle().equals("Incluindo")) {
             produto = viewBean();
             produtoDao.insert(produto);
             util.mensagem("Incluindo");
+            List lista = produtoDao.listAll();
+            jDlgPesquisProdutoNovo.controleProduto.setList(lista);
             setVisible(false);
         } else if (getTitle().equals("Alterando")) {
+            produto = viewBean();
             produtoDao.update(produto);
             tksl_jTxtId.setEnabled(false);
             util.mensagem("Alterado");
+            List lista = produtoDao.listAll();
+            jDlgPesquisProdutoNovo.controleProduto.setList(lista);
             setVisible(false);
         } else {
             util.mensagem("Impossivel de se realizar a operação");

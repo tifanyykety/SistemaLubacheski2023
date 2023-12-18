@@ -21,7 +21,7 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
     public ProdutoControle controleProduto;
     tksl_ProdutoDao produtoDao;
     TkslProduto tkslProduto;
-    
+
     public JDlgProdutoNovo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -35,6 +35,7 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
         jTable1.setModel(controleProduto);
     }
 
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,6 +160,7 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
             } else {
                 produtoDao.delete(controleProduto.getProduto(jTable1.getSelectedRow()));
                 controleProduto.atualizar();
+                controleProduto.setList(produtoDao.listAll());
                 util.mensagem("Excluido");
             }
         } else {
@@ -167,7 +169,7 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
     }//GEN-LAST:event_tksl_jBtnExcluirActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        
+
         if (evt.getClickCount() == 2) {
             controleProduto.setList(produtoDao.listAll());
         }

@@ -135,6 +135,8 @@ public class JDlgVendedorNovo extends javax.swing.JDialog {
             vendedor = controleVendedor.getTkslVendedor(jTable1.getSelectedRow());
             vendedorDao.delete(vendedor);
             util.mensagem("Excluido");
+            List lista = vendedorDao.listAll();
+            controleVendedor.setList(lista);
 
         } else {
             util.mensagem("Selecione uma linha para exclusão");
@@ -146,7 +148,7 @@ public class JDlgVendedorNovo extends javax.swing.JDialog {
         if (util.perguntar("Quer Alterar")) {
             vendedorNovo = new JDlgVendedorIA(null, true);
             vendedorNovo.setTelaAnterior(this);
-            vendedorNovo.setTitle("Aterando");
+            vendedorNovo.setTitle("Alterando");
             vendedorNovo.beanView(controleVendedor.getTkslVendedor(jTable1.getSelectedRow()));
             vendedorNovo.setVisible(true);
         } else {

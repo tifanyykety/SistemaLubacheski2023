@@ -9,7 +9,11 @@ package view;
  *
  * @author u07883409131
  */
+import query.JDlgConsultaCliente;
+import query.JDlgConsultaProduto;
 import query.JDlgConsultaUsuario;
+import query.JDlgConsultaVendasProduto;
+import query.JDlgConsultaVendedor;
 import telasNovas.*;
 
 public class JFrmPrincipal extends javax.swing.JFrame {
@@ -47,6 +51,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         tksl_jMenuCliente = new javax.swing.JMenuItem();
         tksl_jMenuProduto = new javax.swing.JMenuItem();
         tksl_jMenuVendedor = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +120,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
         tksl_jMnuVendas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_MASK));
         tksl_jMnuVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/venda.png"))); // NOI18N
-        tksl_jMnuVendas.setText("jMenuItem1");
+        tksl_jMnuVendas.setText("Vendas");
         tksl_jMnuVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tksl_jMnuVendasActionPerformed(evt);
@@ -166,6 +171,16 @@ public class JFrmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(tksl_jMenuVendedor);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, 0));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produto_1 (2).png"))); // NOI18N
+        jMenuItem1.setText("Venda Produto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
@@ -233,15 +248,27 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void tksl_jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMenuClienteActionPerformed
         // TODO add your handling code here:
+        JDlgConsultaCliente jDlgConsultaCliente=new JDlgConsultaCliente(null, true);
+        jDlgConsultaCliente.setVisible(true);
     }//GEN-LAST:event_tksl_jMenuClienteActionPerformed
 
     private void tksl_jMenuProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMenuProdutoActionPerformed
         // TODO add your handling code here:
+        JDlgConsultaProduto consultaProduto=new JDlgConsultaProduto(null, true);
+        consultaProduto.setVisible(true);
     }//GEN-LAST:event_tksl_jMenuProdutoActionPerformed
 
     private void tksl_jMenuVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tksl_jMenuVendedorActionPerformed
         // TODO add your handling code here:
+        JDlgConsultaVendedor consultaVendedor=new JDlgConsultaVendedor(null, true);
+        consultaVendedor.setVisible(true);
     }//GEN-LAST:event_tksl_jMenuVendedorActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        JDlgConsultaVendasProduto consultaVendasProduto=new JDlgConsultaVendasProduto(null, true);
+        consultaVendasProduto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,6 +315,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem tksl_jMenuCliente;
     private javax.swing.JMenuItem tksl_jMenuItem1;
     private javax.swing.JMenuItem tksl_jMenuProduto;
